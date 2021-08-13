@@ -12,10 +12,10 @@
  *
  * Return: 1 if worked, 0 if not
  */
-int mandelbrot(unsigned int max, cplx z0)
+int mandelbrot(unsigned int max, cplx z0, cplx c)
 {
 	if (max > 0)
-		return mandelbrot(max - 1, cpladd(cplmul(z0, z0), z0));
+		return mandelbrot(max - 1, cpladd(cplmul(z0, z0), c), c);
 	else if (cplmod(z0) > 2)
 		return 1;
 	else
@@ -91,7 +91,7 @@ int main()
 			for (j = 0; j < n; j++)
 			{
 				C = newcpl(inf_real + (j * pX), sup_imag - (i * pY));
-				matrix[i][j] = mandelbrot(iter, C);
+				matrix[i][j] = mandelbrot(iter, C, C);
 			}
 		}
 		fp = fopen("mandelbrot.pgm", "w+");
